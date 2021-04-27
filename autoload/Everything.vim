@@ -43,12 +43,12 @@ function! Everything#StartSearch(args)
   endif
   let dir = s:Handle_String(g:Lf_EverythingDefaultDir)
 
-  let cmd = printf('%s %s %s %s', cmd, g:Lf_EverythingEsOptions, dir, pattern)
+  let cmd = printf('chcp 65001>nul  & %s %s %s %s', cmd, g:Lf_EverythingEsOptions, dir, pattern)
   let s:cache = ''
 
   let res = system(cmd)
-  let cp = libcallnr('kernel32.dll', 'GetACP', 0)
-  let res = iconv(res, printf('cp%d', cp), &encoding)
+  " let cp = libcallnr('kernel32.dll', 'GetACP', 0)
+  " let res = iconv(res, printf('cp%d', cp), &encoding)
   if empty(res)
     call Everything#util#show_msg('No files found!', 'error')
     return ['']
